@@ -74,5 +74,5 @@ While the core is ML, the model is wrapped in a full-stack application to make i
 * **Client:** Telegram Bot API
 
 **👨‍💻 Author**
-[Atchaya K A]
+Atchaya K A
 
