@@ -29,18 +29,18 @@ Social media moderation is a massive challenge. This project automates the detec
 * **Deployment:** Render (Cloud PaaS), UptimeRobot
 
 ## 📂 Project Structure
-
 ```bash
 Cyberbullying-Detector/
-│
-├── api.py                  # The Main Server (FastAPI + Bot Logic)
-├── train_model.py          # Script to train the ML model
-├── cyberbullying_model.pkl # The saved 'Brain' (Trained Model)
-├── requirements.txt        # List of dependencies for Cloud
-├── cyberbullying_data.csv  # Dataset (Kaggle)
-└── README.md               # Project Documentation
+   │
+   ├── api.py                  # The Main Server (FastAPI + Bot Logic)
+   ├── train_model.py          # Script to train the ML model
+   ├── cyberbullying_model.pkl # The saved 'Brain' (Trained Model)
+   ├── requirements.txt        # List of dependencies for Cloud
+   ├── cyberbullying_data.csv  # Dataset (Kaggle)
+   └── README.md               # Project Documentation
 
-## 🧠 Machine Learning Approach
+
+## 🧠 **Machine Learning Approach**
 
 This project focuses on **Natural Language Processing (NLP)** to classify text into `bullying` or `non-bullying` categories.
 
