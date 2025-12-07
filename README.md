@@ -64,6 +64,16 @@ While the core is ML, the model is wrapped in a full-stack application to make i
 * **The "Bouncer" Logic:** A pre-processing layer in the API that instantly filters known safe words (e.g., greetings) and commands before they reach the model, reducing computational load.
 * **Deployment:** Hosted on **Render Cloud** with a Webhook integration, allowing the model to sleep when inactive and wake up instantly for new requests.
 * **Interface:** Integrated with a **Telegram Bot** for real-time user interaction.
+  
+**⚙️ How It Works**
+* User sends a message on Telegram.
+* Telegram sends the message to the Render API via a Webhook.
+* API cleans the text and checks the "Safe List".
+* Model predicts if the text is bullying or non-bullying.
+* If flagged, the Bot replies with a warning and confidence score.
+
+**Demo Screenshot**
+`![Demo Screenshot](screenshot.jpeg)`
 
 ## 🛠️ Tech Stack
 
@@ -75,4 +85,3 @@ While the core is ML, the model is wrapped in a full-stack application to make i
 
 ## **👨‍💻 Author**
 Atchaya K A
-
