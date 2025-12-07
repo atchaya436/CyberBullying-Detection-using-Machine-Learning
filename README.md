@@ -28,17 +28,6 @@ Social media moderation is a massive challenge. This project automates the detec
 * **Bot Integration:** Telegram Bot API (Webhooks), HTTPX (Async requests)
 * **Deployment:** Render (Cloud PaaS), UptimeRobot
 
-## 📂 Project Structure
-```bash
-Cyberbullying-Detector/
-   │
-   ├── api.py                  # The Main Server (FastAPI + Bot Logic)
-   ├── train_model.py          # Script to train the ML model
-   ├── cyberbullying_model.pkl # The saved 'Brain' (Trained Model)
-   ├── requirements.txt        # List of dependencies for Cloud
-   ├── cyberbullying_data.csv  # Dataset (Kaggle)
-   └── README.md               # Project Documentation
-
 ## 🧠 Machine Learning Approach
 
 This project focuses on **Natural Language Processing (NLP)** to classify text into `bullying` or `non-bullying` categories.
@@ -84,6 +73,6 @@ While the core is ML, the model is wrapped in a full-stack application to make i
 * **Cloud & DevOps:** Render, UptimeRobot, Git
 * **Client:** Telegram Bot API
 
-👨‍💻 Author
+**👨‍💻 Author**
 [Atchaya K A]
 
