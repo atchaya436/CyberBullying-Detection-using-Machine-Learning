@@ -39,8 +39,7 @@ Cyberbullying-Detector/
    ├── cyberbullying_data.csv  # Dataset (Kaggle)
    └── README.md               # Project Documentation
 
-
-## 🧠 **Machine Learning Approach**
+## 🧠 Machine Learning Approach
 
 This project focuses on **Natural Language Processing (NLP)** to classify text into `bullying` or `non-bullying` categories.
 
@@ -55,10 +54,10 @@ Raw text data is noisy. The following cleaning steps were implemented to improve
 * **Normalization:** Converting all text to lowercase.
 * **Noise Removal:** stripping special characters, URLs, and punctuation using Regex.
 * **Custom Stop-Word Removal:**
-    * Standard English stop words (e.g., "the", "is") were removed.
-    * **Domain-Specific Optimization:** Words like *"Hello"*, *"School"*, and *"High"* were manually added to the exclusion list to prevent **False Positives** (innocent messages being flagged as toxic).
+* Standard English stop words (e.g., "the", "is") were removed.
+* **Domain-Specific Optimization:** Words like *"Hello"*, *"School"*, and *"High"* were manually added to the exclusion list to prevent **False Positives** (innocent messages being flagged as toxic).
 
-### 3. Feature Engineering (TF-IDF)
+### 3. Feature Engineering 
 To convert text into numerical data for the model, I used **TF-IDF (Term Frequency-Inverse Document Frequency)**.
 * **Why TF-IDF?** Unlike simple word counts, TF-IDF reduces the weight of common words that appear everywhere and increases the weight of rare, significant words (like specific slurs or aggressive verbs).
 * **Configuration:** Limited to the top 5,000 features to optimize performance and speed.
@@ -87,3 +86,4 @@ While the core is ML, the model is wrapped in a full-stack application to make i
 
 👨‍💻 Author
 [Atchaya K A]
+
