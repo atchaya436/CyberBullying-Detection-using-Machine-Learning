@@ -73,7 +73,7 @@ While the core is ML, the model is wrapped in a full-stack application to make i
 * If flagged, the Bot replies with a warning and confidence score.
 
 **Demo Screenshot**
-`![Demo Screenshot](screenshot.jpeg)`
+<img width="451" height="860" alt="image" src="https://github.com/user-attachments/assets/8640bb4b-ebaa-4e4e-85ed-bf6eadfc40c3" />
 
 ## 🛠️ Tech Stack
 
