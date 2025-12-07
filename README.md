@@ -40,7 +40,7 @@ Cyberbullying-Detector/
 ├── cyberbullying_data.csv  # Dataset (Kaggle)
 └── README.md               # Project Documentation
 
-**## 🧠 Machine Learning Approach**
+## 🧠 Machine Learning Approach
 
 This project focuses on **Natural Language Processing (NLP)** to classify text into `bullying` or `non-bullying` categories.
 
@@ -85,32 +85,5 @@ While the core is ML, the model is wrapped in a full-stack application to make i
 * **Cloud & DevOps:** Render, UptimeRobot, Git
 * **Client:** Telegram Bot API
 
-## 🚀 How to Run Locally
-
-1.  **Clone the Repo**
-    ```bash
-    git clone [https://github.com/YOUR_USERNAME/Cyberbullying-Detector.git](https://github.com/YOUR_USERNAME/Cyberbullying-Detector.git)
-    cd Cyberbullying-Detector
-    ```
-
-2.  **Install Libraries**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3.  **Train the Model** (Regenerates the `.pkl` file)
-    ```bash
-    python train_model.py
-    ```
-
-4.  **Start the Server**
-    ```bash
-    uvicorn api:app --reload
-    ```
-
-## 🔮 Future Scope
-* **Deep Learning:** Experimenting with LSTM or BERT to capture context better than TF-IDF.
-* **Multi-Class Classification:** categorizing *types* of bullying (e.g., Racism vs. Sexism) instead of just binary detection.
-
----
-**Developed by [Atchaya K A]**
+👨‍💻 Author
+[Atchaya K A]
