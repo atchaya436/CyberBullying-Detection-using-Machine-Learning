@@ -73,6 +73,6 @@ While the core is ML, the model is wrapped in a full-stack application to make i
 * **Cloud & DevOps:** Render, UptimeRobot, Git
 * **Client:** Telegram Bot API
 
-**👨‍💻 Author**
+## **👨‍💻 Author**
 Atchaya K A
 
