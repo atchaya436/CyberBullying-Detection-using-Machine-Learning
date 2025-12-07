@@ -6,9 +6,11 @@ import httpx
 import os
 
 # 1. SETUP
-app = FastAPI()
-model = joblib.load('cyberbullying_model.pkl')
-TOKEN = "8264186073:AAGbAkBPHPiY3e2Tf5yid20bu4qSRIKJ4Cc" 
+TOKEN = os.environ.get("BOT_TOKEN")
+
+if not TOKEN:
+    raise ValueError("No BOT_TOKEN found! Did you set it in Render?")
+
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
 
 # --- THE FIX: SAFE WORD LIST ---
@@ -85,4 +87,5 @@ async def telegram_webhook(request: Request):
 
 @app.get("/")
 def home():
+
     return {"message": "Cyberbullying Detection System is Live!"}
