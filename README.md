@@ -1,11 +1,6 @@
 # 🛡️ Cyberbullying Detection using Machine Learning
 
-A **Machine Learning Application** that detects toxic language and cyberbullying in real-time. The system uses a trained Logistic Regression model served via a **FastAPI** backend and is accessible through a **Telegram Bot** interface hosted on the cloud.
-
-
-
-[Image of machine learning classification workflow]
-
+An end-to-end **Machine Learning NLP Project** that identifies toxic behavior and cyberbullying in text messages. The model is trained on social media data and deployed via a FastAPI backend to moderate conversations in real-time on Telegram.
 
 ## 🚀 Project Overview
 
@@ -44,3 +39,78 @@ Cyberbullying-Detector/
 ├── requirements.txt        # List of dependencies for Cloud
 ├── cyberbullying_data.csv  # Dataset (Kaggle)
 └── README.md               # Project Documentation
+
+**## 🧠 Machine Learning Approach**
+
+This project focuses on **Natural Language Processing (NLP)** to classify text into `bullying` or `non-bullying` categories.
+
+### 1. The Dataset
+* **Source:** Kaggle Dataset of ~47,000 tweets.
+* **Classes:** Balanced dataset containing roughly 80% bullying and 20% non-bullying content (handled via class weighting/probability thresholds).
+* **Labels:** Cyberbullying types include ethnicity, gender, religion, and age-based harassment.
+
+### 2. Data Preprocessing Pipeline
+Raw text data is noisy. The following cleaning steps were implemented to improve model accuracy:
+* **Tokenization:** Breaking sentences into individual words.
+* **Normalization:** Converting all text to lowercase.
+* **Noise Removal:** stripping special characters, URLs, and punctuation using Regex.
+* **Custom Stop-Word Removal:**
+    * Standard English stop words (e.g., "the", "is") were removed.
+    * **Domain-Specific Optimization:** Words like *"Hello"*, *"School"*, and *"High"* were manually added to the exclusion list to prevent **False Positives** (innocent messages being flagged as toxic).
+
+### 3. Feature Engineering (TF-IDF)
+To convert text into numerical data for the model, I used **TF-IDF (Term Frequency-Inverse Document Frequency)**.
+* **Why TF-IDF?** Unlike simple word counts, TF-IDF reduces the weight of common words that appear everywhere and increases the weight of rare, significant words (like specific slurs or aggressive verbs).
+* **Configuration:** Limited to the top 5,000 features to optimize performance and speed.
+
+### 4. Model Architecture: Logistic Regression
+The core classification engine is a **Logistic Regression** model.
+* **Reason for Choice:** It offers an excellent balance between speed and accuracy for binary text classification tasks. It provides **probability scores** (Confidence %), allowing the system to ignore low-confidence predictions.
+* **Performance:** The model achieves high accuracy in distinguishing between safe conversational text and aggressive harassment.
+
+## 🏗️ System Architecture (Deployment)
+
+While the core is ML, the model is wrapped in a full-stack application to make it usable in the real world:
+
+* **Backend API:** Built with **FastAPI** to serve predictions via HTTP endpoints.
+* **The "Bouncer" Logic:** A pre-processing layer in the API that instantly filters known safe words (e.g., greetings) and commands before they reach the model, reducing computational load.
+* **Deployment:** Hosted on **Render Cloud** with a Webhook integration, allowing the model to sleep when inactive and wake up instantly for new requests.
+* **Interface:** Integrated with a **Telegram Bot** for real-time user interaction.
+
+## 🛠️ Tech Stack
+
+* **Machine Learning:** Scikit-Learn, Pandas, NumPy, Joblib
+* **NLP:** TF-IDF Vectorizer, Regex
+* **Web Framework:** FastAPI, Uvicorn
+* **Cloud & DevOps:** Render, UptimeRobot, Git
+* **Client:** Telegram Bot API
+
+## 🚀 How to Run Locally
+
+1.  **Clone the Repo**
+    ```bash
+    git clone [https://github.com/YOUR_USERNAME/Cyberbullying-Detector.git](https://github.com/YOUR_USERNAME/Cyberbullying-Detector.git)
+    cd Cyberbullying-Detector
+    ```
+
+2.  **Install Libraries**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3.  **Train the Model** (Regenerates the `.pkl` file)
+    ```bash
+    python train_model.py
+    ```
+
+4.  **Start the Server**
+    ```bash
+    uvicorn api:app --reload
+    ```
+
+## 🔮 Future Scope
+* **Deep Learning:** Experimenting with LSTM or BERT to capture context better than TF-IDF.
+* **Multi-Class Classification:** categorizing *types* of bullying (e.g., Racism vs. Sexism) instead of just binary detection.
+
+---
+**Developed by [Atchaya K A]**
