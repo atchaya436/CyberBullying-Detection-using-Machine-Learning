@@ -3,27 +3,36 @@ from pydantic import BaseModel
 import joblib
 import uvicorn
 import httpx
-import os
+import os  # Essential for the secret
 
-# 1. SETUP
+# 1. SETUP - CREATE APP FIRST
+app = FastAPI()
+
+# 2. LOAD MODEL
+try:
+    model = joblib.load('cyberbullying_model.pkl')
+except:
+    print("Model not found!")
+
+# 3. GET SECRET TOKEN (Securely)
 TOKEN = os.environ.get("BOT_TOKEN")
 
+# Check if token exists
 if not TOKEN:
-    raise ValueError("No BOT_TOKEN found! Did you set it in Render?")
+    print("⚠️ WARNING: BOT_TOKEN is missing! Set it in Render Environment Variables.")
+    # We don't raise an error here so the app doesn't crash immediately,
+    # but the bot features won't work until fixed.
 
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
 
-# --- THE FIX: SAFE WORD LIST ---
-SAFE_WORDS = ["hello", "hi", "hey", "start", "test", "thanks", "good morning", "good night", "ok", "okay","dear"
-    "school", "class", "student", "teacher", "udk","facebook", "twitter", "youtube", "video", "channel",         
-    "mkr", "rt", "amp", "katandandre", "gud" ,"idk","tq","stop", "talk", "support", "report", "block", "bully", "bullied"            
-    "u", "ur", "im", "dont", "lol", "ok", "okay","okiee","thx", "pls", "wanna", "gonna",]
+# 4. SAFE WORD LIST
+SAFE_WORDS = ["hello", "hi", "hey", "start", "test", "thanks", "good morning", "good night", "ok", "okay"]
 
-# 2. DATA MODELS
+# 5. DATA MODELS
 class Message(BaseModel):
     text: str
 
-# 3. PREDICTION ENGINE
+# 6. PREDICTION ENGINE
 @app.post("/predict")
 def predict_bullying(message: Message):
     user_text = message.text.lower().strip()
@@ -51,7 +60,7 @@ def predict_bullying(message: Message):
         "status": status
     }
 
-# 4. TELEGRAM WEBHOOK
+# 7. TELEGRAM WEBHOOK
 @app.post("/webhook")
 async def telegram_webhook(request: Request):
     data = await request.json()
@@ -64,7 +73,6 @@ async def telegram_webhook(request: Request):
         # --- IGNORE COMMANDS & GREETINGS ---
         if clean_text.startswith('/') or clean_text in SAFE_WORDS:
             return {"status": "ignored"}
-        # -----------------------------------
         
         # Analyze with Model
         prediction = model.predict([clean_text])[0]
@@ -73,19 +81,20 @@ async def telegram_webhook(request: Request):
             probs = model.predict_proba([clean_text])
             confidence = probs.max()
             
-            # Only block if confidence is high (> 70%) to reduce false positives
+            # Only block if confidence is high (> 70%)
             if confidence > 0.70:
                 reply_text = f"⚠️ Warning: Toxic content detected.\nConfidence: {confidence*100:.1f}%"
                 
-                async with httpx.AsyncClient() as client:
-                    await client.post(TELEGRAM_API_URL, json={
-                        "chat_id": chat_id,
-                        "text": reply_text
-                    })
+                # Check if TOKEN exists before trying to send
+                if TOKEN:
+                    async with httpx.AsyncClient() as client:
+                        await client.post(TELEGRAM_API_URL, json={
+                            "chat_id": chat_id,
+                            "text": reply_text
+                        })
                 
     return {"status": "ok"}
 
 @app.get("/")
 def home():
-
     return {"message": "Cyberbullying Detection System is Live!"}
